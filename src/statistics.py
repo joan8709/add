@@ -7,7 +7,6 @@
 
 from typing import List
 
-
 def mean(numbers: List[float]) -> float:
     """숫자 리스트의 평균을 반환합니다.
 
@@ -26,9 +25,9 @@ def mean(numbers: List[float]) -> float:
         >>> mean([10, 20])
         15.0
     """
-    # TODO: 구현하세요
-    # 힌트: 빈 리스트 체크 필요
-    pass
+    if not numbers:
+        raise ValueError("빈 리스트에는 평균을 계산할 수 없습니다.")
+    return sum(numbers) / len(numbers)
 
 
 def median(numbers: List[float]) -> float:
@@ -53,10 +52,19 @@ def median(numbers: List[float]) -> float:
         >>> median([1, 2, 3, 4])
         2.5
     """
-    # TODO: 구현하세요
-    # 힌트: sorted()로 정렬 후 가운데 값 찾기
-    pass
+    if not numbers:
+        raise ValueError("빈 리스트에는 중앙값을 계산할 수 없습니다.")
 
+    nums = sorted(numbers)
+    n = len(nums)
+    mid = n // 2
+
+    # 홀수 개
+    if n % 2 == 1:
+        return nums[mid]
+
+    # 짝수 개
+    return (nums[mid - 1] + nums[mid]) / 2
 
 def mode(numbers: List[float]) -> float:
     """숫자 리스트의 최빈값을 반환합니다.
@@ -79,10 +87,30 @@ def mode(numbers: List[float]) -> float:
         >>> mode([1, 1, 2, 2])
         1
     """
-    # TODO: 구현하세요
-    # 힌트: 딕셔너리로 빈도수 카운트
-    pass
+    if not numbers:
+        raise ValueError("빈 리스트에는 최빈값을 계산할 수 없습니다.")
 
+    counts = {}
+    first_index = {}
+
+    for i, x in enumerate(numbers):
+        counts[x] = counts.get(x, 0) + 1
+        if x not in first_index:
+            first_index[x] = i
+
+    best_value = numbers[0]
+    best_count = -1
+    best_first = float("inf")
+
+    for x, count in counts.items():
+        idx = first_index[x]
+        if count > best_count or (count == best_count and idx < best_first):
+            best_value = x
+            best_count = count
+            best_first = idx
+
+    return best_value
+    pass
 
 def variance(numbers: List[float]) -> float:
     """숫자 리스트의 분산을 반환합니다.
@@ -102,6 +130,12 @@ def variance(numbers: List[float]) -> float:
         >>> variance([1, 2, 3, 4, 5])
         2.0
     """
-    # TODO: 구현하세요
-    # 힌트: 먼저 평균을 구한 후, 각 값과 평균의 차이의 제곱을 구하고 평균
-    pass
+    if not numbers:
+        raise ValueError("빈 리스트에는 분산을 계산할 수 없습니다.")
+
+    n = len(numbers)
+    if n == 1:
+        return 0.0
+
+    m = mean(numbers)
+    return sum((x - m) ** 2 for x in numbers) / n
