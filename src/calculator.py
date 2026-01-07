@@ -23,6 +23,7 @@ def add(a: float, b: float) -> float:
         0
     """
     # TODO: 구현하세요
+    print (a + b)
     pass
 
 
@@ -43,6 +44,7 @@ def subtract(a: float, b: float) -> float:
         -2
     """
     # TODO: 구현하세요
+    print(a - b)
     pass
 
 
@@ -63,6 +65,7 @@ def multiply(a: float, b: float) -> float:
         -6
     """
     # TODO: 구현하세요
+    print (a * b)
     pass
 
 
@@ -87,4 +90,7 @@ def divide(a: float, b: float) -> float:
     """
     # TODO: 구현하세요
     # 힌트: b가 0이면 ZeroDivisionError를 발생시켜야 합니다
+    if b == 0:
+        raise ZeroDivisionError
+    return a / b
     pass
